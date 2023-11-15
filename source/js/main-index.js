@@ -1,8 +1,28 @@
+//import { getRandomNumber } from "./util1.js";
 const getRandomNumber = function (min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+let idPhoto = [];
+
+function generateUniqueRandom(maxNr = 25) {
+  let random = (Math.random() * maxNr + 1).toFixed();
+
+  random = Number(random);
+
+  if (!idPhoto.includes(random)) {
+    idPhoto.push(random);
+    return random;
+  } else {
+    if (idPhoto.length < maxNr) {
+      return generateUniqueRandom(maxNr);
+    } else {
+      return false;
+    }
+  }
+}
+
 const id = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const avatar = [
@@ -74,11 +94,11 @@ const description = [
 ];
 
 const createPhotos = () => {
-  const randomDiscription = getRandomNumber(0, description.length - 1);
+  const randomDescriptionNumber = getRandomNumber(0, description.length - 1);
   const randomLikes = getRandomNumber(15, 200);
   return {
-    idPhoto: getRandomNumber(1, 25),
-    description: description[randomDiscription],
+    idPhoto: generateUniqueRandom(),
+    description: description[randomDescriptionNumber],
     likes: randomLikes,
     url: `photo/${getRandomNumber(1, 25)}.jpg`,
     comments: createComments(),
@@ -86,5 +106,3 @@ const createPhotos = () => {
 };
 const usersPhoto = new Array(25).fill(null).map(() => createPhotos());
 console.log(usersPhoto);
-
-//export { createComments };
