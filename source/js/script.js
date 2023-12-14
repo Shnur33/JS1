@@ -102,3 +102,6 @@ const createPhotos = () => {
 };
 const usersPhoto = new Array(25).fill(null).map(() => createPhotos());
 console.log(usersPhoto);
+
+export { createComments };
+export { randomLikes };
